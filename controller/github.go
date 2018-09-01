@@ -3,15 +3,16 @@ package controller
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"net/http"
-	"reflect"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 
+	"tutorial/model"
 	"tutorial/service/github"
 )
 
+// GithubCallbackのAPIリクエストについて
 // 1. githubの access_toke 取得の postリクエスト には カスタムheader をつける必要がある。
 // 2. http.Post ではなく http.NewRequest を使う必要がある。(http.Postにはカスタムheaderをつけることができない)
 
@@ -19,49 +20,36 @@ import (
 func GithubCallback(c *gin.Context) {
 
 	// ----------------- AccessToke取得 --------------------------
-
-	githubAuthURL := "https://github.com/login/oauth/access_token"
-
 	// code client_id client_secret を元にPOSTリクエストbodyを生成
 	body := service.CreateCodeBody(c)
-	data := service.RequestAccessToken(githubAuthURL, body)	// AccessTokenの取得
-
-	fmt.Println(data.AccessToken)
+	data := service.RequestAccessToken(body) // AccessTokenの取得
+	token := data.AccessToken
+	fmt.Println("AccessToken: " + token)
 
 	// ------------------- User情報取得 ---------------------------
-	token := data.AccessToken
-	query 
-	data := service.RequestUserData(githubAuthURL, token, type)
+	byteArrayUserData := service.RequestAPI("/user", token)
+	var UserData model.UserData                  // model UserData
+	json.Unmarshal(byteArrayUserData, &UserData) // json.Unmarshalは、構造体のjsonタグがあればその値を対応するフィールドにマッピングする
+	fmt.Println("UserData: " + UserData.Login)
 
-	resp, err := http.Get("https://api.github.com/user?access_token=" + token)
-	if err != nil {
-		panic(err)
-	}
+	// ------------------- Repositry情報取得 ----------------------
+	byteArrayRepos := service.RequestAPI("/user/repos", token)
+	var Repos model.Repos // model Repos
+	json.Unmarshal(byteArrayRepos, &Repos)
+	fmt.Println("Repos: " + strconv.Itoa(len(Repos)))
 
-	byteArray, _ := ioutil.ReadAll(resp.Body)
-	var UserData UserData
-	json.Unmarshal(byteArray, &UserData)
-	return UserData.Login
+	// ------------------- start総数計算 --------------------------
+	startCount := service.SumStarCount(Repos)
+	fmt.Println("startCount: " + strconv.Itoa(startCount))
 
+	// ------------------- activety取得 --------------------------
+	userName := UserData.Login
+	activetyCount := service.ScrapingActivety(userName)
+	fmt.Println("activetyCount: " + strconv.Itoa(activetyCount))
 
-	f := func() {
-        fmt.Println("hello!")
-    }
-    call(f)
+	// ------------------- スコア計算 --------------------------
+	score := service.ScoreGithub(startCount, activetyCount)
+	fmt.Println("githubScore: " + strconv.Itoa(score))
 
 	c.Redirect(http.StatusMovedPermanently, "/")
 }
-
-UserData struct {
-	// User User `json:"user"`
-	Login string `json:"login"`
-}
-
-func call(f interface{}) {
-    fv := reflect.ValueOf(f)
-    if fv.Kind() != reflect.Func {
-        panic("f must be func.")
-    }
-    fv.Call([]reflect.Value{})
-}
-

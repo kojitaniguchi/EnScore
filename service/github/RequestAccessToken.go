@@ -16,8 +16,9 @@ type CredentialData struct {
 }
 
 // RequestAccessToken oauthを利用して、accessToken取得をPOSTリクエスト
-func RequestAccessToken(githubAuthURL string, body *strings.Reader) CredentialData {
+func RequestAccessToken(body *strings.Reader) CredentialData {
 	method := "POST"
+	githubAuthURL := "https://github.com/login/oauth/access_token"
 	// func NewRequest(method, url string, body io.Reader) (*Request, error)
 	req, err := http.NewRequest(method, githubAuthURL, body)
 	if err != nil {
