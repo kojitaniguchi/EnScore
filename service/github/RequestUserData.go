@@ -1,16 +1,16 @@
 package service
 
 import (
-	"encoding/json"
 	"io/ioutil"
 	"strings"
 
 	"net/http"
 )
 
-// RequestUserData accessTokenを利用して、userData取得をgetリクエスト。 返り値は Type に構造体を入れて定義する
-func RequestUserData(githubAuthURL string, query string, token string, Struc struct{}) interface{} {
+// RequestUserData accessTokenを利用して、userData取得をgetリクエスト
+func RequestUserData(query string, token string) []byte {
 	method := "GET"
+	githubAuthURL := "https://api.github.com"
 	body := strings.NewReader("")
 	url := githubAuthURL + query
 	// func NewRequest(method, url string, body io.Reader) (*Request, error)
@@ -20,7 +20,7 @@ func RequestUserData(githubAuthURL string, query string, token string, Struc str
 	}
 
 	// apiからのresponseでJSON を許可するために requestのカスタムヘッダーに　"Accept", "application/json" をセットする
-	req.Header.Set("Authorization", token)
+	req.Header.Set("Authorization", "token "+token)
 
 	// clientを生成し、client.Do(req)でリクエストを実行
 	client := &http.Client{}
@@ -33,10 +33,7 @@ func RequestUserData(githubAuthURL string, query string, token string, Struc str
 	// ioutil.ReadAll()は終端記号にあたるまで全データの読込をする。
 	// streamをioutil.ReadAllで[]byteに変換する
 	byteArray, _ := ioutil.ReadAll(resp.Body)
-	type Type struct{}
 	// json.Unmarshalは、構造体のjsonタグがあればその値を対応するフィールドにマッピングする
-	var data Type
-	json.Unmarshal(byteArray, &data)
 
-	return data
+	return byteArray
 }
