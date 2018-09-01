@@ -27,13 +27,13 @@ func GithubCallback(c *gin.Context) {
 	fmt.Println("AccessToken: " + token)
 
 	// ------------------- User情報取得 ---------------------------
-	byteArrayUserData := service.RequestApi("/user", token)
+	byteArrayUserData := service.RequestAPI("/user", token)
 	var UserData model.UserData // model UserData
 	json.Unmarshal(byteArrayUserData, &UserData)
 	fmt.Println("UserData: " + UserData.Login)
 
 	// ------------------- Repositry情報取得 ----------------------
-	byteArrayRepos := service.RequestApi("/user/repos", token)
+	byteArrayRepos := service.RequestAPI("/user/repos", token)
 	var Repos model.Repos // model Repos
 	json.Unmarshal(byteArrayRepos, &Repos)
 	fmt.Println("Repos: " + strconv.Itoa(len(Repos)))
