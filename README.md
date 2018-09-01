@@ -1,3 +1,4 @@
+# EnScore(Engineer + Score)
 # 評価基準
 ## ver.1でやること
 ### Github:100点
@@ -19,8 +20,6 @@
 ## これからのバージョンでやること
 ### Github
   - [ ] startを付けてくれた人のfollowerによる点数の重み付け
-  - [ ]
-  - [ ] 
        
 ### Qiita
   -  
