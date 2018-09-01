@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 
@@ -26,22 +27,25 @@ func GithubCallback(c *gin.Context) {
 	fmt.Println("AccessToken: " + token)
 
 	// ------------------- User情報取得 ---------------------------
-	byteArrayUserData := service.RequestUserData("/user", token)
+	byteArrayUserData := service.RequestApi("/user", token)
 	var UserData model.UserData // model UserData
 	json.Unmarshal(byteArrayUserData, &UserData)
 	fmt.Println("UserData: " + UserData.Login)
 
 	// ------------------- Repositry情報取得 ----------------------
-	byteArrayRepos := service.RequestUserData("/user/repos", token)
+	byteArrayRepos := service.RequestApi("/user/repos", token)
 	var Repos model.Repos // model Repos
 	json.Unmarshal(byteArrayRepos, &Repos)
-	fmt.Println("Repos: ")
-	fmt.Println(len(Repos))
+	fmt.Println("Repos: " + strconv.Itoa(len(Repos)))
 
 	// ------------------- start総数計算 --------------------------
 	startCount := service.SumStarCount(Repos)
-	fmt.Println("startCount: ")
-	fmt.Println(startCount)
+	fmt.Println("startCount: " + strconv.Itoa(startCount))
+
+	// ------------------- activety取得 --------------------------
+	userName := UserData.Login
+	activetyCount := service.ScrapingActivety(userName)
+	fmt.Println("activetyCount: " + strconv.Itoa(activetyCount))
 
 	c.Redirect(http.StatusMovedPermanently, "/")
 }

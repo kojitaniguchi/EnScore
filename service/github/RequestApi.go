@@ -7,8 +7,8 @@ import (
 	"net/http"
 )
 
-// RequestUserData accessTokenを利用して、userData取得をgetリクエスト
-func RequestUserData(query string, token string) []byte {
+// RequestApi accessTokenを利用して、userData取得をgetリクエスト
+func RequestApi(query string, token string) []byte {
 	method := "GET"
 	githubAuthURL := "https://api.github.com"
 	body := strings.NewReader("")

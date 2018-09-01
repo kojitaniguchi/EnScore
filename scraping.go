@@ -11,10 +11,13 @@ func main() {
 	if err != nil {
 		fmt.Print("url scarapping failed")
 	}
+	sum := 0
 	doc.Find("rect").Each(func(_ int, s *goquery.Selection) {
-		date, _ := s.Attr("data-date")
-		fmt.Println("data-date: " + date)
-		count, _ := s.Attr("data-count")
-		fmt.Println("data-count: " + count)
+		sum = sum + 1
+		// date, _ := s.Attr("data-date")
+		// fmt.Println("data-date: " + date)
+		// count, _ := s.Attr("data-count")
+		// fmt.Println("data-count: " + count)
 	})
+	fmt.Println(sum)
 }
