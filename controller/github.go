@@ -12,6 +12,7 @@ import (
 	"tutorial/service/github"
 )
 
+// GithubCallbackのAPIリクエストについて
 // 1. githubの access_toke 取得の postリクエスト には カスタムheader をつける必要がある。
 // 2. http.Post ではなく http.NewRequest を使う必要がある。(http.Postにはカスタムheaderをつけることができない)
 
@@ -19,7 +20,6 @@ import (
 func GithubCallback(c *gin.Context) {
 
 	// ----------------- AccessToke取得 --------------------------
-
 	// code client_id client_secret を元にPOSTリクエストbodyを生成
 	body := service.CreateCodeBody(c)
 	data := service.RequestAccessToken(body) // AccessTokenの取得
@@ -28,8 +28,8 @@ func GithubCallback(c *gin.Context) {
 
 	// ------------------- User情報取得 ---------------------------
 	byteArrayUserData := service.RequestAPI("/user", token)
-	var UserData model.UserData // model UserData
-	json.Unmarshal(byteArrayUserData, &UserData)
+	var UserData model.UserData                  // model UserData
+	json.Unmarshal(byteArrayUserData, &UserData) // json.Unmarshalは、構造体のjsonタグがあればその値を対応するフィールドにマッピングする
 	fmt.Println("UserData: " + UserData.Login)
 
 	// ------------------- Repositry情報取得 ----------------------

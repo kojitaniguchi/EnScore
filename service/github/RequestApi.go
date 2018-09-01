@@ -33,7 +33,6 @@ func RequestAPI(query string, token string) []byte {
 	// ioutil.ReadAll()は終端記号にあたるまで全データの読込をする。
 	// streamをioutil.ReadAllで[]byteに変換する
 	byteArray, _ := ioutil.ReadAll(resp.Body)
-	// json.Unmarshalは、構造体のjsonタグがあればその値を対応するフィールドにマッピングする
 
 	return byteArray
 }

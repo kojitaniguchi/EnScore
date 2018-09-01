@@ -12,6 +12,7 @@ import (
 
 // CreateCodeBody URL Queryからcode を取得し, access_tokenを所得する
 func CreateCodeBody(c *gin.Context) *strings.Reader {
+	// dotenvの初期load
 	err := godotenv.Load()
 	if err != nil {
 		log.Fatal("Error loading .env file")
@@ -29,7 +30,7 @@ func CreateCodeBody(c *gin.Context) *strings.Reader {
 	values.Add("client_secret", clientSecret)
 
 	// func (v Values) Encode() string
-	// valuesをURLEncodeする(ここでは valueを stringにする意味必要性からぽい))
+	// valuesをURLEncodeする(ここでは valueを stringにする必要性からぽい))
 	EncodedQuery := values.Encode()
 
 	// func NewReader(s string) *Reader
