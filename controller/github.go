@@ -47,5 +47,9 @@ func GithubCallback(c *gin.Context) {
 	activetyCount := service.ScrapingActivety(userName)
 	fmt.Println("activetyCount: " + strconv.Itoa(activetyCount))
 
+	// ------------------- スコア計算 --------------------------
+	score := service.ScoreGithub(startCount, activetyCount)
+	fmt.Println("githubScore: " + strconv.Itoa(score))
+
 	c.Redirect(http.StatusMovedPermanently, "/")
 }

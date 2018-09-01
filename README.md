@@ -1,13 +1,12 @@
 # 評価基準
 ## ver.1でやること
 ### Github:100点
-**star(OSS活動):50点**
+**star(OSS活動):40点**
   - [x] public repoのstart数
-    * StargazersCountの総数(Max 50)
-    * 総start数50以上の人は、満点の50点。
-    * score: **StargazersCountの総数**
+    * 総start数100以上の人は、満点の30点。
+    * score: **30 * (StargazersCountの総数/100)**
     
-**activety(継続的活動):50点**
+**activety(継続的活動):60点**
   - [x] 毎日一回はcontributeしてるか(1年間)
     * https://github.com/users/${username}/contributions をスクレイピングする。
     * contributions-date取得数が371なので、これを年間とする。
