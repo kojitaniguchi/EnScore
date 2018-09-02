@@ -11,14 +11,15 @@ type QiitaCredentialData struct {
 
 // QiitaUserData "/authenticated_user" response
 type QiitaUserData struct {
-	ItemsCount      int    `json:"items_count"`
 	ID              string `json:"id"`
+	ItemsCount      int    `json:"items_count"`
 	ProfileImageURL string `json:"profile_image_url"`
 	WebsiteURL      string `json:"website_url"`
 }
 
 // Posts ユーザーの投稿
 type Posts []struct {
+	ID         string    `json:"id"`
 	CreatedAt  time.Time `json:"created_at"`
 	UpdatedAt  time.Time `json:"updated_at"`
 	LikesCount int       `json:"likes_count"`

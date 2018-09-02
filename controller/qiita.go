@@ -28,5 +28,11 @@ func QiitaCallback(c *gin.Context) {
 	json.Unmarshal(byteArrayUserData, &UserData) // json.Unmarshalは、構造体のjsonタグがあればその値を対応するフィールドにマッピングする
 	fmt.Println("UserData: " + UserData.ID)
 
+	// ------------------- 投稿情報取得 ---------------------------
+	byteArrayItemsData := api.RequestAuthorizedData("/authenticated_user/items?page=1&per_page=100", token, apiName)
+	var Posts model.Posts                      // model UserData
+	json.Unmarshal(byteArrayItemsData, &Posts) // json.Unmarshalは、構造体のjsonタグがあればその値を対応するフィールドにマッピングする
+	fmt.Println("Posts: " + Posts[0].ID)
+
 	c.Redirect(http.StatusMovedPermanently, "/")
 }
