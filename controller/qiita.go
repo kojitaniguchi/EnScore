@@ -3,11 +3,11 @@ package controller
 import (
 	"encoding/json"
 	"fmt"
+	"kyotohack2018-api/api"
+	"kyotohack2018-api/model"
+	service "kyotohack2018-api/service/qiita"
 	"net/http"
 	"strconv"
-	"tutorial/api"
-	"tutorial/model"
-	service "tutorial/service/qiita"
 
 	"github.com/gin-gonic/gin"
 )

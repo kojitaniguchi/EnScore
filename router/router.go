@@ -1,7 +1,7 @@
 package router
 
 import (
-	"tutorial/controller"
+	"kyotohack2018-api/controller"
 
 	"github.com/gin-gonic/gin"
 )

@@ -5,12 +5,12 @@ import (
 	"fmt"
 	"net/http"
 	"strconv"
+	service "tutorial/service/github"
 
 	"github.com/gin-gonic/gin"
 
-	"tutorial/api"
-	"tutorial/model"
-	"tutorial/service/github"
+	"kyotohack2018-api/api"
+	"kyotohack2018-api/model"
 )
 
 // GithubCallbackのAPIリクエストについて

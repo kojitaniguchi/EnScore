@@ -1,6 +1,6 @@
 package service
 
-import "tutorial/model"
+import "kyotohack2018-api/model"
 
 // SumStarCount repository のstargazerの合計
 func SumStarCount(Repos model.Repos) int {

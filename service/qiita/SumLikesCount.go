@@ -1,6 +1,6 @@
 package service
 
-import "tutorial/model"
+import "kyotohack2018-api/model"
 
 // SumLikesCount repository のstargazerの合計
 func SumLikesCount(Posts model.Posts) int {
