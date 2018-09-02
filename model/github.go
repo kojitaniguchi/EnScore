@@ -2,8 +2,8 @@ package model
 
 import "time"
 
-// UserData "/user" response
-type UserData struct {
+// GithubUserData "/user" response
+type GithubUserData struct {
 	Login     string `json:"login"`
 	ID        int    `json:"id"`
 	AvatarURL string `json:"avatar_url"`
@@ -14,6 +14,8 @@ type UserData struct {
 type Repos []struct {
 	StargazersCount int `json:"stargazers_count"`
 }
+
+// ------------------ response の 全てのフィールド ---------------------------
 
 // GithubUserAll "/user" response
 // public and private profile information
