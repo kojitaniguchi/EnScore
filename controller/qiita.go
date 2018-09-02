@@ -41,6 +41,8 @@ func QiitaCallback(c *gin.Context) {
 	fmt.Println("SumLikesCount: " + strconv.Itoa(likesSum))
 
 	// ------------------- 活動頻度取得 ---------------------------
+	ActivetyCount := service.ComputeQiitaActivety(Posts)
+	fmt.Println("ActivetyCount: " + strconv.Itoa(ActivetyCount))
 
 	c.Redirect(http.StatusMovedPermanently, "/")
 }

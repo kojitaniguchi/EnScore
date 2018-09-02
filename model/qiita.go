@@ -21,6 +21,7 @@ type QiitaUserData struct {
 // Posts ユーザーの投稿
 type Posts []struct {
 	ID         string    `json:"id"`
+	Private    bool      `json:"private"`
 	CreatedAt  time.Time `json:"created_at"`
 	UpdatedAt  time.Time `json:"updated_at"`
 	LikesCount int       `json:"likes_count"`
