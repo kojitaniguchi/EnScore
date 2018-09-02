@@ -17,7 +17,7 @@ type CodeBody struct {
 	ClientSecret string `json:"client_secret"`
 }
 
-// CreateCodeBody URL Queryからcode を取得し, access_tokenを所得する
+// CreateCodeBody code client_id client_secret を元にPOSTリクエストbodyを生成
 func CreateCodeBody(c *gin.Context, apiName string) *bytes.Buffer {
 	// dotenvの初期load
 	err := godotenv.Load()

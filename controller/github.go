@@ -22,7 +22,6 @@ func GithubCallback(c *gin.Context) {
 	apiName := "github"
 
 	// ----------------- AccessToke取得 --------------------------
-	// code client_id client_secret を元にPOSTリクエストbodyを生成
 	body := api.CreateCodeBody(c, apiName)
 	byteArrayAccessToken := api.RequestAccessToken(body, apiName) // AccessTokenの取得
 
