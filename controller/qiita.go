@@ -22,13 +22,17 @@ func QiitaCallback(c *gin.Context) {
 	var data model.QiitaCredentialData
 	json.Unmarshal(byteArrayAccessToken, &data)
 	token := data.AccessToken
+	fmt.Println("-------------------------------------")
 	fmt.Println("Qiita AccessToken: " + token)
 
 	// ------------------- ユーザー情報取得 ---------------------------
 	byteArrayUserData := api.RequestAuthorizedData("/authenticated_user", token, apiName)
 	var UserData model.QiitaUserData             // model UserData
 	json.Unmarshal(byteArrayUserData, &UserData) // json.Unmarshalは、構造体のjsonタグがあればその値を対応するフィールドにマッピングする
-	fmt.Println("ItemsCount: " + strconv.Itoa(UserData.ItemsCount))
+	ItemsCount := UserData.ItemsCount
+	FollowersCount := UserData.FollowersCount
+	fmt.Println("-------------------------------------")
+	fmt.Println("ItemsCount: " + strconv.Itoa(ItemsCount))
 	fmt.Println("FollowersCount: " + strconv.Itoa(UserData.FollowersCount))
 
 	// ------------------- 投稿情報取得 ---------------------------
@@ -37,12 +41,26 @@ func QiitaCallback(c *gin.Context) {
 	json.Unmarshal(byteArrayItemsData, &Posts) // json.Unmarshalは、構造体のjsonタグがあればその値を対応するフィールドにマッピングする
 
 	// ------------------- イイね数の取得 ---------------------------
-	likesSum := service.SumLikesCount(Posts)
-	fmt.Println("SumLikesCount: " + strconv.Itoa(likesSum))
+	SumLikesCount := service.SumLikesCount(Posts)
+	fmt.Println("SumLikesCount: " + strconv.Itoa(SumLikesCount))
 
 	// ------------------- 活動頻度取得 ---------------------------
 	ActivetyCount := service.ComputeQiitaActivety(Posts)
 	fmt.Println("ActivetyCount: " + strconv.Itoa(ActivetyCount))
 
-	c.Redirect(http.StatusMovedPermanently, "/")
+	// ------------------- スコア計算 --------------------------
+	fmt.Println("-------------------------------------")
+	QiitaScore := service.ComputeQiitaScore(ItemsCount, FollowersCount, SumLikesCount, ActivetyCount)
+	fmt.Println("-------------------------------------")
+	fmt.Println("QiitaScore: " + strconv.Itoa(QiitaScore))
+	fmt.Println("-------------------------------------")
+
+	c.HTML(http.StatusOK, "qiita.tmpl", gin.H{
+		"title":          "Qiita Score",
+		"ItemsCount":     ItemsCount,
+		"FollowersCount": FollowersCount,
+		"SumLikesCount":  SumLikesCount,
+		"ActivetyCount":  ActivetyCount,
+		"QiitaScore":     QiitaScore,
+	})
 }

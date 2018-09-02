@@ -10,7 +10,7 @@ import (
 func GetRouter() *gin.Engine {
 	router := gin.Default()
 
-	router.LoadHTMLGlob("*.tmpl")
+	router.LoadHTMLGlob("views/*.tmpl")
 
 	router.GET("/", controller.TemplateHandler)
 	router.GET("/alive", controller.AliveCheck)
