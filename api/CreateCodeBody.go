@@ -1,17 +1,24 @@
 package api
 
 import (
+	"bytes"
+	"encoding/json"
 	"log"
-	"net/url"
 	"os"
-	"strings"
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 )
 
+// CodeBody AccessToken　リクエスト時のbody
+type CodeBody struct {
+	Code         string `json:"code"`
+	ClientID     string `json:"client_id"`
+	ClientSecret string `json:"client_secret"`
+}
+
 // CreateCodeBody URL Queryからcode を取得し, access_tokenを所得する
-func CreateCodeBody(c *gin.Context, apiName string) *strings.Reader {
+func CreateCodeBody(c *gin.Context, apiName string) *bytes.Buffer {
 	// dotenvの初期load
 	err := godotenv.Load()
 	if err != nil {
@@ -32,19 +39,14 @@ func CreateCodeBody(c *gin.Context, apiName string) *strings.Reader {
 		clientSecret = os.Getenv("QIITA_CLIENT_SECRET")
 	}
 
-	// url.Values{} は httpリクエストを送るときの query parameters として使われる
-	values := url.Values{}
-	values.Add("code", code)
-	values.Add("client_id", clientID)
-	values.Add("client_secret", clientSecret)
-
-	// func (v Values) Encode() string
-	// valuesをURLEncodeする(ここでは valueを stringにする必要性からぽい))
-	EncodedQuery := values.Encode()
-
-	// func NewReader(s string) *Reader
-	// http.NewRequest の ために type *strings.Reader にする
-	body := strings.NewReader(EncodedQuery)
+	// リクエストbodyをjsnoで統一する
+	codeBody := CodeBody{
+		Code:         code,
+		ClientID:     clientID,
+		ClientSecret: clientSecret,
+	}
+	authtoken, err := json.Marshal(codeBody)
+	body := bytes.NewBuffer(authtoken)
 
 	return body
 }

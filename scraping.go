@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"encoding/json"
+	"fmt"
+)
 
 func main() {
 	// doc, err := goquery.NewDocument("https://github.com/users/kojitaniguchi/contributions")
@@ -20,4 +23,26 @@ func main() {
 	te = 120 / 371
 
 	fmt.Println(te)
+
+	var fff interface{}
+	json.Unmarshal(byteArrayAccessToken, &fff)
+
+	m := fff.(map[string]interface{})
+	for k, v := range m {
+		switch vv := v.(type) {
+		case string:
+			fmt.Println(k, "is string", vv)
+		case int:
+			fmt.Println(k, "is int", vv)
+		case float64:
+			fmt.Println(k, "is float64", vv)
+		case []interface{}:
+			fmt.Println(k, "is an array:")
+			for i, u := range vv {
+				fmt.Println(i, u)
+			}
+		default:
+			fmt.Println(k, "is of a type I dont know how to handle")
+		}
+	}
 }

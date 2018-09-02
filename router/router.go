@@ -16,7 +16,7 @@ func GetRouter() *gin.Engine {
 	router.GET("/alive", controller.AliveCheck)
 
 	router.GET("/github/callback", controller.GithubCallback)
-	// router.GET("/qiita/callback", controller.QiitaCallback)
+	router.GET("/qiita/callback", controller.QiitaCallback)
 
 	return router
 }

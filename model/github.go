@@ -15,6 +15,13 @@ type Repos []struct {
 	StargazersCount int `json:"stargazers_count"`
 }
 
+// GithubCredentialData access_tokenが入ったreponseの json 構造体
+type GithubCredentialData struct {
+	AccessToken string `json:"access_token"`
+	Scope       string `json:"scope"`
+	TokenType   string `json:"token_type"`
+}
+
 // ------------------ response の 全てのフィールド ---------------------------
 
 // GithubUserAll "/user" response
