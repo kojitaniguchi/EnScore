@@ -25,10 +25,11 @@ func GithubCallback(c *gin.Context) {
 	// code client_id client_secret を元にPOSTリクエストbodyを生成
 	body := api.CreateCodeBody(c, apiName)
 	byteArrayAccessToken := api.RequestAccessToken(body, apiName) // AccessTokenの取得
-	var data CredentialData
+
+	var data model.GithubCredentialData
 	json.Unmarshal(byteArrayAccessToken, &data)
 	token := data.AccessToken
-	fmt.Println("AccessToken: " + token)
+	fmt.Println("Github AccessToken: " + token)
 
 	// ------------------- User情報取得 ---------------------------
 	byteArrayUserData := api.RequestAuthorizedData("/user", token, apiName)
@@ -56,11 +57,4 @@ func GithubCallback(c *gin.Context) {
 	fmt.Println("githubScore: " + strconv.Itoa(score))
 
 	c.Redirect(http.StatusMovedPermanently, "/")
-}
-
-// CredentialData access_tokenが入ったreponseの json 構造体
-type CredentialData struct {
-	AccessToken string `json:"access_token"`
-	Scope       string `json:"scope"`
-	TokenType   string `json:"token_type"`
 }
