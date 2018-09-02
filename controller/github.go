@@ -3,9 +3,9 @@ package controller
 import (
 	"encoding/json"
 	"fmt"
+	service "kyotohack2018-api/service/github"
 	"net/http"
 	"strconv"
-	service "tutorial/service/github"
 
 	"github.com/gin-gonic/gin"
 
