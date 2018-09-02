@@ -20,8 +20,8 @@ func CreateCodeBody(c *gin.Context) *strings.Reader {
 
 	// URLからaccess_token 取得のために必要な code を取得する
 	code := c.Request.URL.Query().Get("code")
-	clientID := os.Getenv("CLIENT_ID")
-	clientSecret := os.Getenv("CLIENT_SECRET")
+	clientID := os.Getenv("GITHUB_CLIENT_ID")
+	clientSecret := os.Getenv("GITHUB_CLIENT_SECRET")
 
 	// url.Values{} は httpリクエストを送るときの query parameters として使われる
 	values := url.Values{}
