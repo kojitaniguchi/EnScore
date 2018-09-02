@@ -13,6 +13,7 @@ type QiitaCredentialData struct {
 type QiitaUserData struct {
 	ID              string `json:"id"`
 	ItemsCount      int    `json:"items_count"`
+	FollowersCount  int    `json:"followers_count"`
 	ProfileImageURL string `json:"profile_image_url"`
 	WebsiteURL      string `json:"website_url"`
 }
