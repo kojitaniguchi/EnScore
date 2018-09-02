@@ -1,4 +1,4 @@
-package service
+package api
 
 import (
 	"io/ioutil"
@@ -7,20 +7,30 @@ import (
 	"net/http"
 )
 
-// RequestAPI accessTokenを利用して、userData取得をgetリクエスト
-func RequestAPI(query string, token string) []byte {
-	method := "GET"
-	githubAuthURL := "https://api.github.com"
-	body := strings.NewReader("")
-	url := githubAuthURL + query
+// RequestAccessToken oauthを利用して、accessToken取得をPOSTリクエスト
+func RequestAccessToken(body *strings.Reader, apiName string) []byte {
+	method := "POST"
+
+	// apiによってリクエスト先のURLを変える
+	var URL string
+	if apiName == "github" {
+		URL = "https://github.com/login/oauth/access_token"
+	} else if apiName == "qiita" {
+		URL = "https://qiita.com/api/v2/access_tokens"
+	}
+
 	// func NewRequest(method, url string, body io.Reader) (*Request, error)
-	req, err := http.NewRequest(method, url, body)
+	req, err := http.NewRequest(method, URL, body)
 	if err != nil {
 		panic(err)
 	}
 
 	// apiからのresponseでJSON を許可するために requestのカスタムヘッダーに　"Accept", "application/json" をセットする
-	req.Header.Set("Authorization", "token "+token)
+	if apiName == "github" {
+		req.Header.Set("Accept", "application/json")
+	} else if apiName == "qiita" {
+		req.Header.Set("Content-Type", "application/json")
+	}
 
 	// clientを生成し、client.Do(req)でリクエストを実行
 	client := &http.Client{}

@@ -8,6 +8,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
+	"tutorial/api"
 	"tutorial/model"
 	"tutorial/service/github"
 )
@@ -18,22 +19,25 @@ import (
 
 // GithubCallback : /github/callback でaccesstokenを取得する controller
 func GithubCallback(c *gin.Context) {
+	apiName := "github"
 
 	// ----------------- AccessToke取得 --------------------------
 	// code client_id client_secret を元にPOSTリクエストbodyを生成
-	body := service.CreateCodeBody(c)
-	data := service.RequestAccessToken(body) // AccessTokenの取得
+	body := api.CreateCodeBody(c, apiName)
+	byteArrayAccessToken := api.RequestAccessToken(body, apiName) // AccessTokenの取得
+	var data CredentialData
+	json.Unmarshal(byteArrayAccessToken, &data)
 	token := data.AccessToken
 	fmt.Println("AccessToken: " + token)
 
 	// ------------------- User情報取得 ---------------------------
-	byteArrayUserData := service.RequestAPI("/user", token)
-	var UserData model.UserData                  // model UserData
+	byteArrayUserData := api.RequestAuthorizedData("/user", token, apiName)
+	var UserData model.GithubUserData            // model UserData
 	json.Unmarshal(byteArrayUserData, &UserData) // json.Unmarshalは、構造体のjsonタグがあればその値を対応するフィールドにマッピングする
 	fmt.Println("UserData: " + UserData.Login)
 
 	// ------------------- Repositry情報取得 ----------------------
-	byteArrayRepos := service.RequestAPI("/user/repos", token)
+	byteArrayRepos := api.RequestAuthorizedData("/user/repos", token, apiName)
 	var Repos model.Repos // model Repos
 	json.Unmarshal(byteArrayRepos, &Repos)
 	fmt.Println("Repos: " + strconv.Itoa(len(Repos)))
@@ -52,4 +56,11 @@ func GithubCallback(c *gin.Context) {
 	fmt.Println("githubScore: " + strconv.Itoa(score))
 
 	c.Redirect(http.StatusMovedPermanently, "/")
+}
+
+// CredentialData access_tokenが入ったreponseの json 構造体
+type CredentialData struct {
+	AccessToken string `json:"access_token"`
+	Scope       string `json:"scope"`
+	TokenType   string `json:"token_type"`
 }

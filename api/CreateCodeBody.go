@@ -1,4 +1,4 @@
-package service
+package api
 
 import (
 	"log"
@@ -11,7 +11,7 @@ import (
 )
 
 // CreateCodeBody URL Queryからcode を取得し, access_tokenを所得する
-func CreateCodeBody(c *gin.Context) *strings.Reader {
+func CreateCodeBody(c *gin.Context, apiName string) *strings.Reader {
 	// dotenvの初期load
 	err := godotenv.Load()
 	if err != nil {
@@ -20,8 +20,17 @@ func CreateCodeBody(c *gin.Context) *strings.Reader {
 
 	// URLからaccess_token 取得のために必要な code を取得する
 	code := c.Request.URL.Query().Get("code")
-	clientID := os.Getenv("GITHUB_CLIENT_ID")
-	clientSecret := os.Getenv("GITHUB_CLIENT_SECRET")
+
+	// apiによってloadするenvを変える
+	var clientID string
+	var clientSecret string
+	if apiName == "github" {
+		clientID = os.Getenv("GITHUB_CLIENT_ID")
+		clientSecret = os.Getenv("GITHUB_CLIENT_SECRET")
+	} else if apiName == "qiita" {
+		clientID = os.Getenv("QIITA_CLIENT_ID")
+		clientSecret = os.Getenv("QIITA_CLIENT_SECRET")
+	}
 
 	// url.Values{} は httpリクエストを送るときの query parameters として使われる
 	values := url.Values{}
