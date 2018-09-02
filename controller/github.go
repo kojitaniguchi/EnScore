@@ -22,28 +22,27 @@ func GithubCallback(c *gin.Context) {
 	apiName := "github"
 
 	// ----------------- AccessToke取得 --------------------------
-	// code client_id client_secret を元にPOSTリクエストbodyを生成
 	body := api.CreateCodeBody(c, apiName)
 	byteArrayAccessToken := api.RequestAccessToken(body, apiName) // AccessTokenの取得
 
 	var data model.GithubCredentialData
 	json.Unmarshal(byteArrayAccessToken, &data)
 	token := data.AccessToken
+	fmt.Println("-------------------------------------")
 	fmt.Println("Github AccessToken: " + token)
 
 	// ------------------- User情報取得 ---------------------------
 	byteArrayUserData := api.RequestAuthorizedData("/user", token, apiName)
 	var UserData model.GithubUserData            // model UserData
 	json.Unmarshal(byteArrayUserData, &UserData) // json.Unmarshalは、構造体のjsonタグがあればその値を対応するフィールドにマッピングする
-	fmt.Println("UserData: " + UserData.Login)
 
 	// ------------------- Repositry情報取得 ----------------------
 	byteArrayRepos := api.RequestAuthorizedData("/user/repos", token, apiName)
 	var Repos model.Repos // model Repos
 	json.Unmarshal(byteArrayRepos, &Repos)
-	fmt.Println("Repos: " + strconv.Itoa(len(Repos)))
 
 	// ------------------- start総数計算 --------------------------
+	fmt.Println("-------------------------------------")
 	startCount := service.SumStarCount(Repos)
 	fmt.Println("startCount: " + strconv.Itoa(startCount))
 
@@ -53,8 +52,16 @@ func GithubCallback(c *gin.Context) {
 	fmt.Println("activetyCount: " + strconv.Itoa(activetyCount))
 
 	// ------------------- スコア計算 --------------------------
-	score := service.ScoreGithub(startCount, activetyCount)
-	fmt.Println("githubScore: " + strconv.Itoa(score))
+	fmt.Println("-------------------------------------")
+	githubScore := service.ComputeScoreGithub(startCount, activetyCount)
+	fmt.Println("-------------------------------------")
+	fmt.Println("githubScore: " + strconv.Itoa(githubScore))
+	fmt.Println("-------------------------------------")
 
-	c.Redirect(http.StatusMovedPermanently, "/")
+	c.HTML(http.StatusOK, "github.tmpl", gin.H{
+		"title":         "Github Score",
+		"startCount":    startCount,
+		"activetyCount": activetyCount,
+		"githubScore":   githubScore,
+	})
 }

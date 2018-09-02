@@ -4,8 +4,10 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"strconv"
 	"tutorial/api"
 	"tutorial/model"
+	service "tutorial/service/qiita"
 
 	"github.com/gin-gonic/gin"
 )
@@ -15,14 +17,50 @@ func QiitaCallback(c *gin.Context) {
 	apiName := "qiita"
 
 	// ----------------- AccessToke取得 --------------------------
-	// code client_id client_secret を元にPOSTリクエストbodyを生成
 	body := api.CreateCodeBody(c, apiName)
 	byteArrayAccessToken := api.RequestAccessToken(body, apiName) // AccessTokenの取得
 	var data model.QiitaCredentialData
 	json.Unmarshal(byteArrayAccessToken, &data)
 	token := data.AccessToken
-	// fmt.Println(data)
+	fmt.Println("-------------------------------------")
 	fmt.Println("Qiita AccessToken: " + token)
 
-	c.Redirect(http.StatusMovedPermanently, "/")
+	// ------------------- ユーザー情報取得 ---------------------------
+	byteArrayUserData := api.RequestAuthorizedData("/authenticated_user", token, apiName)
+	var UserData model.QiitaUserData             // model UserData
+	json.Unmarshal(byteArrayUserData, &UserData) // json.Unmarshalは、構造体のjsonタグがあればその値を対応するフィールドにマッピングする
+	ItemsCount := UserData.ItemsCount
+	FollowersCount := UserData.FollowersCount
+	fmt.Println("-------------------------------------")
+	fmt.Println("ItemsCount: " + strconv.Itoa(ItemsCount))
+	fmt.Println("FollowersCount: " + strconv.Itoa(UserData.FollowersCount))
+
+	// ------------------- 投稿情報取得 ---------------------------
+	byteArrayItemsData := api.RequestAuthorizedData("/authenticated_user/items?page=1&per_page=100", token, apiName)
+	var Posts model.Posts                      // model UserData
+	json.Unmarshal(byteArrayItemsData, &Posts) // json.Unmarshalは、構造体のjsonタグがあればその値を対応するフィールドにマッピングする
+
+	// ------------------- イイね数の取得 ---------------------------
+	SumLikesCount := service.SumLikesCount(Posts)
+	fmt.Println("SumLikesCount: " + strconv.Itoa(SumLikesCount))
+
+	// ------------------- 活動頻度取得 ---------------------------
+	ActivetyCount := service.ComputeQiitaActivety(Posts)
+	fmt.Println("ActivetyCount: " + strconv.Itoa(ActivetyCount))
+
+	// ------------------- スコア計算 --------------------------
+	fmt.Println("-------------------------------------")
+	QiitaScore := service.ComputeQiitaScore(ItemsCount, FollowersCount, SumLikesCount, ActivetyCount)
+	fmt.Println("-------------------------------------")
+	fmt.Println("QiitaScore: " + strconv.Itoa(QiitaScore))
+	fmt.Println("-------------------------------------")
+
+	c.HTML(http.StatusOK, "qiita.tmpl", gin.H{
+		"title":          "Qiita Score",
+		"ItemsCount":     ItemsCount,
+		"FollowersCount": FollowersCount,
+		"SumLikesCount":  SumLikesCount,
+		"ActivetyCount":  ActivetyCount,
+		"QiitaScore":     QiitaScore,
+	})
 }
