@@ -1,11 +1,10 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 )
 
-func main() {
+func test() {
 	// doc, err := goquery.NewDocument("https://github.com/users/kojitaniguchi/contributions")
 	// if err != nil {
 	// 	fmt.Print("url scarapping failed")
@@ -19,30 +18,30 @@ func main() {
 	// fmt.Println("data-count: " + count)
 	// })
 	// fmt.Println(sum)
-	var te float64
-	te = 120 / 371
+	// var te float64
+	// te = 120 / 371
 
-	fmt.Println(te)
+	fmt.Println("te")
 
-	var fff interface{}
-	json.Unmarshal(byteArrayAccessToken, &fff)
+	// fff interface{}
+	// json.Unmarshal(byteArrayAccessToken, &fff)
 
-	m := fff.(map[string]interface{})
-	for k, v := range m {
-		switch vv := v.(type) {
-		case string:
-			fmt.Println(k, "is string", vv)
-		case int:
-			fmt.Println(k, "is int", vv)
-		case float64:
-			fmt.Println(k, "is float64", vv)
-		case []interface{}:
-			fmt.Println(k, "is an array:")
-			for i, u := range vv {
-				fmt.Println(i, u)
-			}
-		default:
-			fmt.Println(k, "is of a type I dont know how to handle")
-		}
-	}
+	// m := fff.(map[string]interface{})
+	// for k, v := range m {
+	// 	switch vv := v.(type) {
+	// 	case string:
+	// 		fmt.Println(k, "is string", vv)
+	// 	case int:
+	// 		fmt.Println(k, "is int", vv)
+	// 	case float64:
+	// 		fmt.Println(k, "is float64", vv)
+	// 	case []interface{}:
+	// 		fmt.Println(k, "is an array:")
+	// 		for i, u := range vv {
+	// 			fmt.Println(i, u)
+	// 		}
+	// 	default:
+	// 		fmt.Println(k, "is of a type I dont know how to handle")
+	// 	}
+	// }
 }
