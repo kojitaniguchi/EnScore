@@ -7,13 +7,15 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 )
 
-// CodeBody AccessToken　リクエスト時のbody
-type CodeBody struct {
-	Code         string `json:"code"`
-	ClientID     string `json:"client_id"`
-	ClientSecret string `json:"client_secret"`
+func init() {
+	// dotenvの初期load
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
 }
 
 // CreateCodeBody code client_id client_secret を元にPOSTリクエストbodyを生成
@@ -46,4 +48,11 @@ func CreateCodeBody(c *gin.Context, apiName string) *bytes.Buffer {
 	body := bytes.NewBuffer(authtoken)
 
 	return body
+}
+
+// CodeBody AccessToken　リクエスト時のbody
+type CodeBody struct {
+	Code         string `json:"code"`
+	ClientID     string `json:"client_id"`
+	ClientSecret string `json:"client_secret"`
 }
