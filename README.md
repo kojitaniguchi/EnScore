@@ -13,7 +13,7 @@
     * contributions-date取得数が371なので、これを年間とする。
     * score: **50 * (activetyCount/371)**
     
-### Qiita
+### Qiita:100点
 - [x] **ItemsScore : 総Items数(累積活動):30点**
   - 大学4年間 * 月/1本 = 約50本(MAX)
 
