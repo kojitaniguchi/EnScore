@@ -1,8 +1,8 @@
 package service
 
 import (
+	"kyotohack2018-api/model"
 	"time"
-	"tutorial/model"
 )
 
 type post struct {

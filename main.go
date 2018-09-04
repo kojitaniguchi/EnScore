@@ -1,7 +1,7 @@
 package main
 
 import (
-	"tutorial/router"
+	"kyotohack2018-api/router"
 )
 
 func main() {

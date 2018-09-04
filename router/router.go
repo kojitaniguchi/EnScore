@@ -1,7 +1,7 @@
 package router
 
 import (
-	"tutorial/controller"
+	"kyotohack2018-api/controller"
 
 	"github.com/gin-gonic/gin"
 )
@@ -17,6 +17,8 @@ func GetRouter() *gin.Engine {
 
 	router.GET("/github/callback", controller.GithubCallback)
 	router.GET("/qiita/callback", controller.QiitaCallback)
+
+	router.GET("/score/web", controller.WebSocreHandler)
 
 	return router
 }
