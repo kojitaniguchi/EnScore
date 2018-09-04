@@ -8,9 +8,9 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"tutorial/api"
-	"tutorial/model"
-	"tutorial/service/github"
+	"kyotohack2018-api/api"
+	"kyotohack2018-api/model"
+	"kyotohack2018-api/service/github"
 )
 
 // GithubCallbackのAPIリクエストについて

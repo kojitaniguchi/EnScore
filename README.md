@@ -28,6 +28,16 @@
   - MAX : 100
 
 
+### WebScore:100点
+- [ ] **lighthouse score(各20点)**
+  - Performance
+  - Progressive Web App
+  - Accessibility
+  - Best Practices
+  - SEO
+
+
+
 ## これからのバージョンでやること
 ### Github
   - [ ] startを付けてくれた人のfollowerによる点数の重み付け
