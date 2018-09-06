@@ -7,23 +7,19 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 )
 
-// CodeBody AccessToken　リクエスト時のbody
-type CodeBody struct {
-	Code         string `json:"code"`
-	ClientID     string `json:"client_id"`
-	ClientSecret string `json:"client_secret"`
+func init() {
+	// dotenvの初期load
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
 }
 
 // CreateCodeBody code client_id client_secret を元にPOSTリクエストbodyを生成
 func CreateCodeBody(c *gin.Context, apiName string) *bytes.Buffer {
-	// dotenvの初期load
-	// err := godotenv.Load()
-	// if err != nil {
-	// 	log.Fatal("Error loading .env file")
-	// }
-
 	// URLからaccess_token 取得のために必要な code を取得する
 	code := c.Request.URL.Query().Get("code")
 
@@ -46,9 +42,16 @@ func CreateCodeBody(c *gin.Context, apiName string) *bytes.Buffer {
 	}
 	authtoken, err := json.Marshal(codeBody)
 	if err != nil {
-		log.Fatal("Error authtoken")
+		log.Fatal("Error json.Marshal(codeBody) ")
 	}
 	body := bytes.NewBuffer(authtoken)
 
 	return body
+}
+
+// CodeBody AccessToken　リクエスト時のbody
+type CodeBody struct {
+	Code         string `json:"code"`
+	ClientID     string `json:"client_id"`
+	ClientSecret string `json:"client_secret"`
 }

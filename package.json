@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "heroku-prebuild": "npm install -g lighthouse",
-    "heroku-postbuild": "lighthouse --version"
+    "heroku-postbuild": "lighthouse https://kojitaniguchi.net --output json --quiet"
   },
   "repository": {
     "type": "git",
