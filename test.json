@@ -1,0 +1,25 @@
+{
+  "requestedUrl": "https://kojitaniguchi.net/",
+  "categories": {
+    "performance": {
+      "title": "Performance",
+      "score": null
+    },
+    "pwa": {
+      "title": "Progressive Web App",
+      "score": 0.65
+    },
+    "accessibility": {
+      "title": "Accessibility",
+      "score": 1
+    },
+    "best-practices": {
+      "title": "Best Practices",
+      "score": 0.87
+    },
+    "seo": {
+      "title": "SEO",
+      "score": 0.78
+    }
+  }
+}
