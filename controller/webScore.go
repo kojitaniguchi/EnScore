@@ -10,9 +10,12 @@ import (
 
 // WebSocreHandler : /web/socre urlを元にlighthouseを使ってスコアを算出
 func WebSocreHandler(c *gin.Context) {
-	// ---------------- scoreの取得 ---------------
+	// ---------------- lighthouse scoreの取得 ---------------
 	results := service.ExecLighthouse()
 	fmt.Println(results[0].RequestedURL)
+
+	// ---------------- webScoreの算出 -----------------------
+	service.ComputeWebScore(results)
 
 	c.HTML(http.StatusOK, "github.tmpl", gin.H{
 		"title": "web Score",

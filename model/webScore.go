@@ -5,16 +5,16 @@ type LighthouseScoreCategory struct {
 	RequestedURL string `json:"requestedUrl"`
 	Categories   struct {
 		Performance struct {
-			Title string      `json:"title"`
-			Score interface{} `json:"score"`
+			Title string  `json:"title"`
+			Score float64 `json:"score"`
 		} `json:"performance"`
 		Pwa struct {
 			Title string  `json:"title"`
 			Score float64 `json:"score"`
 		} `json:"pwa"`
 		Accessibility struct {
-			Title string `json:"title"`
-			Score int    `json:"score"`
+			Title string  `json:"title"`
+			Score float64 `json:"score"`
 		} `json:"accessibility"`
 		BestPractices struct {
 			Title string  `json:"title"`
