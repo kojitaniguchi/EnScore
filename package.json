@@ -1,0 +1,21 @@
+{
+  "name": "kyotohack2018-api",
+  "version": "1.0.0",
+  "description": "EnScore",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "heroku-prebuild": "npm install -g lighthouse",
+    "heroku-postbuild": "lighthouse --version"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kojitaniguchi/EnScore.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kojitaniguchi/EnScore/issues"
+  },
+  "homepage": "https://github.com/kojitaniguchi/EnScore#readme"
+}
