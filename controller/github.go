@@ -3,6 +3,7 @@ package controller
 import (
 	"encoding/json"
 	"fmt"
+	service "kyotohack2018-api/service/github"
 	"net/http"
 	"strconv"
 
@@ -10,7 +11,6 @@ import (
 
 	"kyotohack2018-api/api"
 	"kyotohack2018-api/model"
-	"kyotohack2018-api/service/github"
 )
 
 // GithubCallbackのAPIリクエストについて
