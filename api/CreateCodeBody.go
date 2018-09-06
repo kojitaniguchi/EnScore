@@ -20,7 +20,6 @@ func init() {
 
 // CreateCodeBody code client_id client_secret を元にPOSTリクエストbodyを生成
 func CreateCodeBody(c *gin.Context, apiName string) *bytes.Buffer {
-
 	// URLからaccess_token 取得のために必要な code を取得する
 	code := c.Request.URL.Query().Get("code")
 
