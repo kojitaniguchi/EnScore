@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "heroku-prebuild": "npm install -g lighthouse && lighthouse --version &&npm root -g",
-    "heroku-postbuild": "lighthouse https://kojitaniguchi.net --output json --quiet"
+    "heroku-prebuild": "npm install -g lighthouse",
+    "heroku-postbuild": "lighthouse --chrome-flags='--headless' https://github.com"
   },
   "repository": {
     "type": "git",
