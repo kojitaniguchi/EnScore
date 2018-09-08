@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "heroku-prebuild": "npm install -g lighthouse && lighthouse --version"
+    "heroku-prebuild": "npm install -g lighthouse && lighthouse --version && export CHROME_PATH=/app/.apt/opt/google/chrome/chrome",
+    "heroku-postbuild": "lighthouse --chrome-flags='--headless --no-sandbox --disable-gpu' https://github.com"
   },
   "repository": {
     "type": "git",

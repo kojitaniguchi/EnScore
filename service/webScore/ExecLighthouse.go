@@ -19,7 +19,7 @@ func ExecLighthouse() []model.LighthouseScoreCategory {
 	var results []model.LighthouseScoreCategory
 
 	for i := 0; i < len(URL); i++ {
-		commandStr := "lighthouse " + URL[i] + " --output json --quiet"
+		commandStr := "lighthouse --chrome-flags='--headless --no-sandbox --disable-gpu' --output json --quiet " + URL[i]
 		out, err := exec.Command("sh", "-c", commandStr).Output()
 		if err != nil {
 			panic(err)
