@@ -1,4 +1,9 @@
 # EnScore(Engineer + Score)
+---
+
+deployに関しては、deploy.md[]()を参照
+
+---
 # 評価基準
 ## ver.1でやること
 ### Github:100点
