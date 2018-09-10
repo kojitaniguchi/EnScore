@@ -73,7 +73,6 @@ type GithubUserAll struct {
 }
 
 // GithubRepositoryAll "/user/repos" response
-
 type GithubRepositoryAll []struct {
 	ID       int    `json:"id"`
 	NodeID   string `json:"node_id"`

@@ -15,9 +15,10 @@ func WebSocreHandler(c *gin.Context) {
 	fmt.Println(results[0].RequestedURL)
 
 	// ---------------- webScoreの算出 -----------------------
-	service.ComputeWebScore(results)
+	ComputedResults := service.ComputeWebScore(results)
 
-	c.HTML(http.StatusOK, "github.tmpl", gin.H{
-		"title": "web Score",
+	c.HTML(http.StatusOK, "webScore.tmpl", gin.H{
+		"title":           "web Score",
+		"ComputedResults": ComputedResults,
 	})
 }
