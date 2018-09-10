@@ -34,7 +34,7 @@
   → /Users/hogehoge/go/src/project_name
 ```
 
-3. herokuコマンド作った ${app-name} プロジェクトは src 配下に作成されるので、deployするときのpathは以下のように設定る
+3. herokuコマンド作った ${app-name} プロジェクトは src 配下に作成されるので、deployするときのpathは以下のように設定る
 
 開発環境
 
@@ -68,7 +68,7 @@ import (
 ```
 
 ## デプロイ編
-1. 開発環境で使用していたローカル変数を,herokuに設定する。（ダッシュボードのsettingのConfig Vars → reveal config で設定できる。）
+1. 開発環境で使用していたローカル変数を,herokuに設定する。（ダッシュボードのsettingのConfig Vars → reveal config で設定できる。）
 2. branch は master で行う（他に設定できないのかな？）
 3. git add . → git commit- m 'deploy' → git push heroku master
 4. deploy後のlog確認
