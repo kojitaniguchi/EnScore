@@ -21,7 +21,10 @@
         </section>
         <section>
             <h1>スコア結果</h1>
-            <p>計測してください</p>
+            <p>{{.title}}</p>
+            {{range .ComputedResults}}
+                <li>サイトURL: {{.RequestedURL}} Socre: {{.Score}}</li>
+            {{end}}
         </section>
     </body>
  </html>

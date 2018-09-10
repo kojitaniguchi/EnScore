@@ -13,9 +13,9 @@ import (
 // - https://github.com/heroku/heroku-buildpack-google-chrome.git
 
 // ExecLighthouse Performance　ProgressiveWebApp Accessibility SEO BestPractices の５つのscoreを返す。
-func ExecLighthouse() []model.LighthouseScoreCategory {
+func ExecLighthouse(url string) []model.LighthouseScoreCategory {
 	// ここのURLは request body から取得した任意のURLを入れる。
-	var URL = []string{"https://kojitaniguchi.net"}
+	var URL = []string{url}
 	var results []model.LighthouseScoreCategory
 
 	for i := 0; i < len(URL); i++ {
