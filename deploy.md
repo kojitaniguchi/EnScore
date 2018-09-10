@@ -1,6 +1,6 @@
 # herokuデプロイまでの手順
 
-**※goenvでバージョン管理行ってるので、path設定は以下の通り(僕はbashなので)**
+**※goenvでバージョン管理行ってるので、path設定は以下の通り(僕はbashなので)**
 
 ```bash_profile
     export GOPATH=$HOME/go
@@ -68,10 +68,10 @@ import (
 ```
 
 ## デプロイ編
-1. 開発環境で使用していたローカル変数を,herokuに設定する。（ダッシュボードのsettingのConfig Vars → reveal config で設定できる。）
+1. 開発環境で使用していたローカル変数を,herokuに設定する。（ダッシュボードのsettingのConfig Vars → reveal config で設定できる。）
 2. branch は master で行う（他に設定できないのかな？）
-3. git add . → git commit- m 'deploy' → git push heroku master
-4. deploy後のlog確認
+3. git add . → git commit- m 'deploy' → git push heroku master
+4. deploy後のlog確認
 
 ```
 $ heroku logs --tail
