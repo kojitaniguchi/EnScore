@@ -6,12 +6,18 @@
      <body>
         <section>
             <h1>スコア算出</h1>
-            <p>github scoreを算出する</p>
-            <a href="https://github.com/login/oauth/authorize?client_id=e391fe29adceaf06ddbb&scope=user:email">github認証を許可して、スコアを算出する</a>
-            <p>qiita scoreを算出する</p>
-            <a href="https://qiita.com/api/v2/oauth/authorize?client_id=866bd56b7cc0c2cbed2ba0ddb5e3e08f4de323d0&scope=read_qiita">qiita認証を許可して、スコアを算出する</a>
-            <p>web scoreを算出する</p>
-            <a href="/score/web">web score 算出</a>
+            <p>github scoreを算出する
+            <a href="https://github.com/login/oauth/authorize?client_id=3f9d2552863099f642b8&scope=user:email">github認証を許可して、スコアを算出する</a>
+            </p>
+            <p>qiita scoreを算出する
+            <a href="https://qiita.com/api/v2/oauth/authorize?client_id=b88e0f8d74808228dec172b7933e82dc3e6d5ea5&scope=read_qiita">qiita認証を許可して、スコアを算出する</a>
+            </p>
+            <p>web scoreを算出する(計測するwebサイトのURLを送信してください)
+            <form action="/score/web" method="POST">
+                <input type="url" name="url">
+                <input type="submit" name="算出">
+            </form>
+            </p>
         </section>
         <section>
             <h1>スコア結果</h1>

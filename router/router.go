@@ -18,7 +18,7 @@ func GetRouter() *gin.Engine {
 	router.GET("/github/callback", controller.GithubCallback)
 	router.GET("/qiita/callback", controller.QiitaCallback)
 
-	router.GET("/score/web", controller.WebSocreHandler)
+	router.POST("/score/web", controller.WebSocreHandler)
 
 	return router
 }
