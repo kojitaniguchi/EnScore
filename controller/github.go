@@ -58,10 +58,18 @@ func GithubCallback(c *gin.Context) {
 	fmt.Println("githubScore: " + strconv.Itoa(githubScore))
 	fmt.Println("-------------------------------------")
 
+	// template
 	c.HTML(http.StatusOK, "github.tmpl", gin.H{
 		"title":         "Github Score",
 		"startCount":    startCount,
 		"activetyCount": activetyCount,
 		"githubScore":   githubScore,
 	})
+
+	// SPA
+	http.SetCookie(c.Writer, &http.Cookie{
+		Name: "github", Value: strconv.Itoa(githubScore), MaxAge: 1000 * 60 * 60 * 60 * 24 * 7,
+	})
+	c.Redirect(http.StatusMovedPermanently, "/")
+
 }
