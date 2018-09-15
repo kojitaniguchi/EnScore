@@ -55,12 +55,22 @@ func QiitaCallback(c *gin.Context) {
 	fmt.Println("QiitaScore: " + strconv.Itoa(QiitaScore))
 	fmt.Println("-------------------------------------")
 
-	c.HTML(http.StatusOK, "qiita.tmpl", gin.H{
-		"title":          "Qiita Score",
-		"ItemsCount":     ItemsCount,
-		"FollowersCount": FollowersCount,
-		"SumLikesCount":  SumLikesCount,
-		"ActivetyCount":  ActivetyCount,
-		"QiitaScore":     QiitaScore,
+	// template
+	// c.HTML(http.StatusOK, "qiita.tmpl", gin.H{
+	// 	"title":          "Qiita Score",
+	// 	"ItemsCount":     ItemsCount,
+	// 	"FollowersCount": FollowersCount,
+	// 	"SumLikesCount":  SumLikesCount,
+	// 	"ActivetyCount":  ActivetyCount,
+	// 	"QiitaScore":     QiitaScore,
+	// })
+
+	// SPA
+	http.SetCookie(c.Writer, &http.Cookie{
+		Name:   "qiita",
+		Value:  strconv.Itoa(QiitaScore),
+		MaxAge: 1000 * 60 * 60 * 60 * 24 * 7,
 	})
+
+	c.Redirect(http.StatusMovedPermanently, "/")
 }

@@ -1,4 +1,9 @@
 # EnScore(Engineer + Score)
+---
+
+deployに関しては、deploy.md[]()を参照
+
+---
 # 評価基準
 ## ver.1でやること
 ### Github:100点
@@ -27,7 +32,6 @@
 - [x] **Followers数(他者評価)):10点**
   - MAX : 100
 
-
 ### WebScore:100点
 - [ ] **lighthouse score(各20点)**
   - Performance
@@ -35,8 +39,6 @@
   - Accessibility
   - Best Practices
   - SEO
-
-
 
 ## これからのバージョンでやること
 ### Github

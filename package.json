@@ -5,14 +5,13 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "heroku-prebuild": "npm install -g lighthouse",
-    "heroku-postbuild": "lighthouse --version"
+    "heroku-prebuild": "npm install -g lighthouse && lighthouse --version && echo $CHROME_PATH"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kojitaniguchi/EnScore.git"
   },
-  "author": "",
+  "author": "kojitaniguchi",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/kojitaniguchi/EnScore/issues"

@@ -2,6 +2,7 @@ package router
 
 import (
 	"kyotohack2018-api/controller"
+	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
@@ -10,15 +11,23 @@ import (
 func GetRouter() *gin.Engine {
 	router := gin.Default()
 
-	router.LoadHTMLGlob("views/*.tmpl")
+	// template
+	// router.LoadHTMLGlob("views/*.tmpl")
+	// router.GET("/", controller.TemplateHandler)
 
-	router.GET("/", controller.TemplateHandler)
+	// spa
+	router.Static("/javascript", "client/assets/javascript")
+	router.LoadHTMLGlob("index.html")
+	router.GET("/", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "index.html", nil)
+	})
+
 	router.GET("/alive", controller.AliveCheck)
 
 	router.GET("/github/callback", controller.GithubCallback)
 	router.GET("/qiita/callback", controller.QiitaCallback)
 
-	router.GET("/score/web", controller.WebSocreHandler)
+	router.POST("/score/web", controller.WebSocreHandler)
 
 	return router
 }

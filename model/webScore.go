@@ -1,6 +1,6 @@
 package model
 
-// LighthouseCategory 項目別
+// LighthouseScoreCategory 項目別
 type LighthouseScoreCategory struct {
 	RequestedURL string `json:"requestedUrl"`
 	Categories   struct {
@@ -25,6 +25,12 @@ type LighthouseScoreCategory struct {
 			Score float64 `json:"score"`
 		} `json:"seo"`
 	} `json:"categories"`
+}
+
+// ScoreResult 総合スコア
+type ScoreResult struct {
+	RequestedURL string
+	Score        int
 }
 
 // LighthouseAll lighthouse score

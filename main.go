@@ -6,5 +6,6 @@ import (
 
 func main() {
 	router := router.GetRouter()
-	router.Run(":8081")
+	// router.Run(":" + os.Getenv("PORT"))
+	router.Run(":8082")
 }
