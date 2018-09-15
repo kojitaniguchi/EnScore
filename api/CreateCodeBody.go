@@ -7,14 +7,15 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 )
 
 func init() {
 	// dotenvの初期load
-	// err := godotenv.Load()
-	// if err != nil {
-	// 	log.Fatal("Error loading .env file")
-	// }
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
 }
 
 // CreateCodeBody code client_id client_secret を元にPOSTリクエストbodyを生成

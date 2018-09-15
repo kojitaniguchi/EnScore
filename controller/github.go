@@ -3,14 +3,13 @@ package controller
 import (
 	"encoding/json"
 	"fmt"
+	"kyotohack2018-api/api"
+	"kyotohack2018-api/model"
 	service "kyotohack2018-api/service/github"
 	"net/http"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
-
-	"kyotohack2018-api/api"
-	"kyotohack2018-api/model"
 )
 
 // GithubCallbackのAPIリクエストについて
@@ -59,17 +58,18 @@ func GithubCallback(c *gin.Context) {
 	fmt.Println("-------------------------------------")
 
 	// template
-	c.HTML(http.StatusOK, "github.tmpl", gin.H{
-		"title":         "Github Score",
-		"startCount":    startCount,
-		"activetyCount": activetyCount,
-		"githubScore":   githubScore,
-	})
+	// c.HTML(http.StatusOK, "github.tmpl", gin.H{
+	// 	"title":         "Github Score",
+	// 	"startCount":    startCount,
+	// 	"activetyCount": activetyCount,
+	// 	"githubScore":   githubScore,
+	// })
 
 	// SPA
 	http.SetCookie(c.Writer, &http.Cookie{
-		Name: "github", Value: strconv.Itoa(githubScore), MaxAge: 1000 * 60 * 60 * 60 * 24 * 7,
+		Name:  "github",
+		Value: strconv.Itoa(githubScore),
 	})
-	c.Redirect(http.StatusMovedPermanently, "/")
 
+	c.Redirect(http.StatusMovedPermanently, "/")
 }

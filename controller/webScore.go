@@ -20,10 +20,10 @@ func WebSocreHandler(c *gin.Context) {
 	ComputedResults := service.ComputeWebScore(results)
 
 	//template
-	c.HTML(http.StatusOK, "webScore.tmpl", gin.H{
-		"title":           "web Score",
-		"ComputedResults": ComputedResults,
-	})
+	// c.HTML(http.StatusOK, "webScore.tmpl", gin.H{
+	// 	"title":           "web Score",
+	// 	"ComputedResults": ComputedResults,
+	// })
 
 	// SPA
 	http.SetCookie(c.Writer, &http.Cookie{
