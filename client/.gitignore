@@ -1,9 +1,0 @@
-/node_modules
-
-/.DS_Store
-
-/.npm-debug.log
-
-/dist/.DS_Store
-/dist/client/bundle.js
-/dist/server/server.js
