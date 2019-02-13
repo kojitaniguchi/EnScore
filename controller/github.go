@@ -70,6 +70,16 @@ func GithubCallback(c *gin.Context) {
 		Name:  "github",
 		Value: strconv.Itoa(githubScore),
 	})
+	c.SetCookie(
+		"token",
+		"testtoken",
+		3600,
+		"/",
+		"127.0.0.1",
+		false,
+		false,
+	)
 
-	c.Redirect(http.StatusMovedPermanently, "/")
+	c.Redirect(http.StatusFound, "/")
+	// http.Redirect(c.Writer, r, "/", http.StatusFound)
 }
